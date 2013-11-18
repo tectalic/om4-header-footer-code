@@ -2,7 +2,7 @@
 /*
 Plugin Name: OM4 Header/Footer Code
 Plugin URI: http://om4.com.au/wordpress-plugins/
-Description: Use the WordPress dashboard to add custom HTML code to the head section or closing body section.
+Description: Use the WordPress dashboard to add custom HTML code to the head section or closing body section. Ensures jQuery is always available in the frontend.
 Version: 1.0
 Author: OM4
 Author URI: http://om4.com.au/
@@ -52,10 +52,19 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 			add_action( 'admin_post_update_header_footer_code', array($this, 'DashboardScreenSave') );
 		}
 
+		add_action('wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts') );
+
 		add_action( 'wp_head', array($this, 'MaybeDisplayHeaderCode'), $this->GetHeaderCodePriority() );
 		add_action( 'wp_footer', array($this, 'MaybeDisplayFooterCode'), 9999999 ); // Big number so it is right before the </body> tag
 
 		parent::__construct();
+	}
+
+	/**
+	 * Always include jQuery in the frontend
+	 */
+	function wp_enqueue_scripts() {
+		wp_enqueue_script('jquery');
 	}
 
 	/**
