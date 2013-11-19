@@ -3,12 +3,13 @@
 Plugin Name: OM4 Header/Footer Code
 Plugin URI: http://om4.com.au/wordpress-plugins/
 Description: Use the WordPress dashboard to add custom HTML code to the head section or closing body section. Ensures jQuery is always available in the frontend.
-Version: 1.0
+Version: 1.0.1
 Author: OM4
 Author URI: http://om4.com.au/
 Text Domain: om4-header-footer-code
 Git URI: https://github.com/OM4/om4-header-footer-code
 Git Branch: release
+License: GPLv2 or later
 */
 
 /*
