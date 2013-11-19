@@ -99,7 +99,10 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 
 	function MaybeDisplayHeaderCode() {
 			$text = $this->GetHeaderCode();
-			if ($text) echo "\n$text\n";
+			if ($text) {
+				$text = do_shortcode( $text );
+				echo "\n$text\n";
+			}
 	}
 
 	public function GetFooterCode() {
@@ -112,7 +115,10 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 
 	function MaybeDisplayFooterCode() {
 			$text = $this->GetFooterCode();
-			if ($text) echo "\n$text\n";
+			if ($text) {
+				$text = do_shortcode( $text );
+				echo "\n$text\n";
+			}
 	}
 
 	public function DashboardScreen(){
