@@ -9,7 +9,7 @@ Author URI: http://om4.com.au/
 Text Domain: om4-header-footer-code
 Git URI: https://github.com/OM4/om4-header-footer-code
 Git Branch: release
-License: GPLv2 or later
+License: GPLv2
 */
 
 /*
