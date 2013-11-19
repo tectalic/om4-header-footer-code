@@ -50,17 +50,17 @@ abstract class OM4_Plugin_Appearance {
 	public function __construct() {
 
 		if ( is_admin() ) {
-			add_action('admin_menu', array($this, 'AdminMenu') );
+			add_action('admin_menu', array($this, 'admin_meu') );
 		}
 
-		add_action('admin_bar_menu', array($this, 'AdminBar'), 100);
+		add_action('admin_bar_menu', array($this, 'admin_bar_menu'), 100);
 
 	}
 
 	/**
 	 * @return string URL to the Custom CSS screen in the WP dashboard
 	 */
-	public function DashboardURL() {
+	public function dashboard_url() {
 		if ( empty( $this->dashboard_url ) ) {
 			$this->dashboard_url = admin_url( 'themes.php?page=' . $this->screen_name );
 		}
@@ -71,29 +71,29 @@ abstract class OM4_Plugin_Appearance {
 	 * The URL used when the saving process succeeds
 	 * @return string
 	 */
-	protected function DashboardURLSaved() {
-		return add_query_arg( 'updated', 'true',  $this->DashboardURL() );
+	protected function dashboard_url_saved() {
+		return add_query_arg( 'updated', 'true',  $this->dashboard_url() );
 	}
 
 	/**
 	 * The URL used when the saving process fails
 	 * @return string
 	 */
-	protected function DashboardURLSavedError() {
-		return add_query_arg( 'updated', 'false',  $this->DashboardURL() );
+	protected function dashboard_url_saved_error() {
+		return add_query_arg( 'updated', 'false',  $this->dashboard_url() );
 	}
 
-	protected function FormAction() {
+	protected function form_action() {
 		return admin_url('admin-post.php');
 	}
 
-	public function CanAccessDashboardScreen() {
+	public function can_access_dashboard_screen() {
 		return current_user_can( $this->capability );
 	}
 
-	public function AdminBar() {
+	public function admin_bar_menu() {
 
-		if ( ! $this->CanAccessDashboardScreen() ) {
+		if ( ! $this->can_access_dashboard_screen() ) {
 			return;
 		}
 
@@ -102,19 +102,19 @@ abstract class OM4_Plugin_Appearance {
 			'title' => $this->screen_title
 			,'id' => $this->screen_name
 			,'parent' => 'appearance'
-			,'href' => $this->DashboardURL()
+			,'href' => $this->dashboard_url()
 		);
 		$wp_admin_bar->add_menu($args);
 	}
 
 
-	public function AdminMenu() {
-		add_theme_page( $this->screen_title, $this->screen_title, $this->capability, $this->screen_name, array($this, 'DashboardScreen') );
+	public function admin_meu() {
+		add_theme_page( $this->screen_title, $this->screen_title, $this->capability, $this->screen_name, array($this, 'dashboard_screen') );
 	}
 
-	public abstract function DashboardScreen();
+	public abstract function dashboard_screen();
 
-	public function AddLoadDashboardPageHook( $method ) {
+	public function add_load_dashboard_page_hook( $method ) {
 		add_action( 'load-appearance_page_' .$this->screen_name, $method );
 	}
 
