@@ -1,7 +1,7 @@
 <?php
 /*
 
-   Copyright 2012-2013 OM4 (email: info@om4.com.au    web: http://om4.com.au/)
+   Copyright 2012-2014 OM4 (email: info@om4.com.au    web: http://om4.com.au/)
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -116,6 +116,20 @@ abstract class OM4_Plugin_Appearance {
 
 	public function add_load_dashboard_page_hook( $method ) {
 		add_action( 'load-appearance_page_' .$this->screen_name, $method );
+	}
+
+	/**
+	 * Flush any caches.
+	 *
+	 * Typically used whenever global site-wide settings are changed.
+	 */
+	public function cache_flush() {
+
+		// If W3 Total Cache is active, flush the page cache
+		if ( function_exists( 'w3tc_pgcache_flush' ) ) {
+			w3tc_pgcache_flush();
+		}
+
 	}
 
 }

@@ -3,7 +3,7 @@
 Plugin Name: OM4 Header/Footer Code
 Plugin URI: http://om4.com.au/wordpress-plugins/
 Description: Use the WordPress dashboard to add custom HTML code to the head section or closing body section. Also ensures jQuery is always available in the frontend.
-Version: 1.0.2
+Version: 1.0.3
 Author: OM4
 Author URI: http://om4.com.au/
 Text Domain: om4-header-footer-code
@@ -14,7 +14,7 @@ License: GPLv2
 
 /*
 
-   Copyright 2012-2013 OM4 (email: info@om4.com.au    web: http://om4.com.au/)
+   Copyright 2012-2014 OM4 (email: info@om4.com.au    web: http://om4.com.au/)
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -187,6 +187,9 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 			$this->set_header_code_priority( $_POST['header_code_priority'] );
 
 			$this->set_footer_code( stripslashes($_POST['footercode']) );
+
+			// Flush caches. Necessary because cached pages would otherwise refer to the previous header/footer script/code.
+			$this->cache_flush();
 
 			$url = $this->dashboard_url_saved();
 
