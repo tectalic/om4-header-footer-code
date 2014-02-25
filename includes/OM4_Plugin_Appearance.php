@@ -125,9 +125,24 @@ abstract class OM4_Plugin_Appearance {
 	 */
 	public function cache_flush() {
 
-		// If W3 Total Cache is active, flush the page cache
 		if ( function_exists( 'w3tc_pgcache_flush' ) ) {
+
+			// W3 Total Cache is active, so flush the page cache
 			w3tc_pgcache_flush();
+
+		} else if ( class_exists( 'WpeCommon' ) ) {
+			// Running on WPengine, so flush their caches
+
+			if ( method_exists( 'WpeCommon', 'purge_memcached' ) ) {
+				WpeCommon::purge_memcached();
+			}
+			if ( method_exists( 'WpeCommon', 'clear_maxcdn_cache' ) ) {
+				WpeCommon::clear_maxcdn_cache();
+			}
+			if ( method_exists( 'WpeCommon', 'purge_varnish_cache' ) ) {
+				WpeCommon::purge_varnish_cache();
+			}
+
 		}
 
 	}
