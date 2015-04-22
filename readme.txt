@@ -1,8 +1,8 @@
 === OM4 Header/Footer Code ===
 Tags: code, html code, html, header, footer, javascript, head, body
 Requires at least: 3.7
-Tested up to: 3.9
-Stable tag: 1.0.5
+Tested up to: 4.2
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,6 +18,9 @@ Custom HTML code can be added to your site using an easy to use WordPress dashbo
 1. Go to Appearance, Header & Footer, and write some HTML code!
 
 == Changelog ==
+
+= 1.0.6 =
+* Security enhancement for add_query_arg usage.
 
 = 1.0.5 =
 * Allow other plugins to perform actions whenever the Header/Footer code is saved.

@@ -14,7 +14,7 @@ License: GPLv2
 
 /*
 
-   Copyright 2012-2014 OM4 (email: info@om4.com.au    web: http://om4.com.au/)
+   Copyright 2012-2015 OM4 (email: info@om4.com.au    web: http://om4.com.au/)
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -195,7 +195,7 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 
 		}
 
-		wp_redirect( $url );
+		wp_redirect( esc_url_raw( $url ) );
 		exit;
 	}
 
