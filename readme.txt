@@ -1,7 +1,7 @@
 === OM4 Header/Footer Code ===
 Tags: code, html code, html, header, footer, javascript, head, body
 Requires at least: 3.7
-Tested up to: 4.2
+Tested up to: 4.5
 Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
