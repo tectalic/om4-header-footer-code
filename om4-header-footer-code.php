@@ -3,7 +3,7 @@
 Plugin Name: OM4 Header/Footer Code
 Plugin URI: https://github.com/OM4/om4-header-footer-code
 Description: Use the WordPress dashboard to add custom HTML code to the head section or closing body section. Also ensures jQuery is always available in the frontend.
-Version: 1.1
+Version: 1.1.1
 Author: OM4
 Author URI: https://github.com/OM4/
 Text Domain: om4-header-footer-code
@@ -171,8 +171,8 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 				<p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"></p>
 				</form>
 			</div>
-			<script src="<?php esc_attr_e( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.js?v=5.17.0"></script>
-			<link rel="stylesheet" href="<?php esc_attr_e( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.css?v=5.17.0">
+			<script src="<?php esc_attr_e( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.js?v=5.17.0.1"></script>
+			<link rel="stylesheet" href="<?php esc_attr_e( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.css?v=5.17.0.1">
 			<style type="text/css">
 				.CodeMirror {
 					height: auto;
@@ -184,13 +184,15 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 					mode: "text/html", // HTML mode
 					viewportMargin: Infinity, // Expand the editor to the height of the code
 					lineWrapping: true, // Line Wrapping
+					matchBrackets: true, // Highlight matching brackets
 					autofocus: true, // Autofocus the cursor into the editor on page load
 				});
 				var headerCodeMirror = CodeMirror.fromTextArea(document.getElementById('footercode'), {
 					lineNumbers: true, // Show line numbers
 					mode: "text/html", // HTML mode
 					viewportMargin: Infinity, // Expand the editor to the height of the code
-					lineWrapping: true // Line Wrapping
+					lineWrapping: true, // Line Wrapping
+					matchBrackets: true, // Highlight matching brackets
 				});
 			</script>
 		</div>

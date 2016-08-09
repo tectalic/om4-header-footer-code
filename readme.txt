@@ -2,7 +2,7 @@
 Tags: code, html code, html, header, footer, javascript, head, body
 Requires at least: 4.2
 Tested up to: 4.6
-Stable tag: 1.1
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,6 +18,9 @@ Custom HTML code can be added to your site using an easy to use WordPress dashbo
 1. Go to Appearance, Header & Footer, and write some HTML code!
 
 == Changelog ==
+
+= 1.1.1 =
+* Highlight matching brackets
 
 = 1.1 =
 * Add HTML syntax highlighting/editing.
