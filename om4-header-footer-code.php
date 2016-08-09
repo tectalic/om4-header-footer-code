@@ -69,6 +69,13 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 	}
 
 	/**
+	 * Get the URL to this plugin's folder
+	 */
+	public function plugin_url() {
+		return untrailingslashit( plugins_url( '/', __FILE__ ) );
+	}
+
+	/**
 	 * Determine whether the currently logged in user has access to the custom header/footer script fields.
 	 *
 	 * This is defined as anyone who has access the manage_options and the unfiltered_html capabilities. In other words:
@@ -164,6 +171,27 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 				<p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"></p>
 				</form>
 			</div>
+			<script src="<?php esc_attr_e( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.js?v=5.17.0"></script>
+			<link rel="stylesheet" href="<?php esc_attr_e( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.css?v=5.17.0">
+			<style type="text/css">
+				.CodeMirror {
+					height: auto;
+				}
+			</style>
+			<script>
+				var headerCodeMirror = CodeMirror.fromTextArea(document.getElementById('headercode'), {
+					lineNumbers: true, // Show line numbers
+					mode: "text/html", // HTML mode
+					viewportMargin: Infinity, // Expand the editor to the height of the code
+					lineWrapping: true // Line Wrapping
+				});
+				var headerCodeMirror = CodeMirror.fromTextArea(document.getElementById('footercode'), {
+					lineNumbers: true, // Show line numbers
+					mode: "text/html", // HTML mode
+					viewportMargin: Infinity, // Expand the editor to the height of the code
+					lineWrapping: true // Line Wrapping
+				});
+			</script>
 		</div>
 	<?php
 	}
