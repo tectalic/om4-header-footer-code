@@ -192,7 +192,7 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 					mode: "text/html", // HTML mode
 					viewportMargin: Infinity, // Expand the editor to the height of the code
 					lineWrapping: true, // Line Wrapping
-					matchBrackets: true, // Highlight matching brackets
+					matchBrackets: true // Highlight matching brackets
 				});
 			</script>
 		</div>
