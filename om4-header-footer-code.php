@@ -183,7 +183,8 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 					lineNumbers: true, // Show line numbers
 					mode: "text/html", // HTML mode
 					viewportMargin: Infinity, // Expand the editor to the height of the code
-					lineWrapping: true // Line Wrapping
+					lineWrapping: true, // Line Wrapping
+					autofocus: true, // Autofocus the cursor into the editor on page load
 				});
 				var headerCodeMirror = CodeMirror.fromTextArea(document.getElementById('footercode'), {
 					lineNumbers: true, // Show line numbers
