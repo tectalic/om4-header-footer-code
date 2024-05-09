@@ -34,11 +34,12 @@ abstract class OM4_Plugin_Appearance {
 	 */
 	protected $capability = 'manage_options';
 
-	protected $screen_title;
+	protected string $screen_title;
 
-	protected $screen_name;
+	protected string $screen_name;
 
-	protected $wp_editor_defaults = array(
+	/** @var array{media_buttons: bool, textarea_rows: int, wpautop: bool, quicktags: bool, tinymce: bool} */
+	protected array $wp_editor_defaults = array(
 		'media_buttons' => false,
 		'textarea_rows' => 10,
 		'wpautop' => false,
@@ -83,15 +84,15 @@ abstract class OM4_Plugin_Appearance {
 		return add_query_arg( 'updated', 'false',  $this->dashboard_url() );
 	}
 
-	protected function form_action() {
+	protected function form_action(): string {
 		return admin_url('admin-post.php');
 	}
 
-	public function can_access_dashboard_screen() {
+	public function can_access_dashboard_screen(): bool {
 		return current_user_can( $this->capability );
 	}
 
-	public function admin_bar_menu() {
+	public function admin_bar_menu(): void {
 
 		if ( ! $this->can_access_dashboard_screen() ) {
 			return;
@@ -108,13 +109,13 @@ abstract class OM4_Plugin_Appearance {
 	}
 
 
-	public function admin_meu() {
+	public function admin_meu(): void {
 		add_theme_page( $this->screen_title, $this->screen_title, $this->capability, $this->screen_name, array($this, 'dashboard_screen') );
 	}
 
-	public abstract function dashboard_screen();
+	public abstract function dashboard_screen(): void;
 
-	public function add_load_dashboard_page_hook( $method ) {
+	public function add_load_dashboard_page_hook( callable $method ): void {
 		add_action( 'load-appearance_page_' .$this->screen_name, $method );
 	}
 

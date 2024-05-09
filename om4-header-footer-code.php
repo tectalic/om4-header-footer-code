@@ -64,14 +64,14 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 	/**
 	 * Always include jQuery in the frontend
 	 */
-	function wp_enqueue_scripts() {
+	function wp_enqueue_scripts(): void {
 		wp_enqueue_script('jquery');
 	}
 
 	/**
 	 * Get the URL to this plugin's folder
 	 */
-	public function plugin_url() {
+	public function plugin_url(): string {
 		return untrailingslashit( plugins_url( '/', __FILE__ ) );
 	}
 
@@ -84,27 +84,27 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 	 *
 	 * @return bool
 	 */
-	public function can_manage_code() {
+	public function can_manage_code(): bool {
 		return $this->can_access_dashboard_screen() && current_user_can('unfiltered_html');
 	}
 
-	public function get_header_code() {
-		return get_option('om4_custom_header_code', '');
+	public function get_header_code(): string {
+		return strval( get_option('om4_custom_header_code', '') );
 	}
 
-	public function set_header_code( $code ) {
+	public function set_header_code( string $code ): bool {
 		return update_option('om4_custom_header_code', $code);
 	}
 
-	function get_header_code_priority() {
+	function get_header_code_priority(): int {
 		return intval( get_option('om4_custom_header_code_priority', 10) );
 	}
 
-	function set_header_code_priority( $priority ) {
+	function set_header_code_priority( string $priority ): bool {
 		return update_option('om4_custom_header_code_priority', intval($priority) );
 	}
 
-	function maybe_display_header_code() {
+	function maybe_display_header_code(): void {
 			$text = $this->get_header_code();
 			if ($text) {
 				$text = do_shortcode( $text );
@@ -112,15 +112,15 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 			}
 	}
 
-	public function get_footer_code() {
-		return get_option('om4_custom_footer_code', '');
+	public function get_footer_code(): string {
+		return strval( get_option('om4_custom_footer_code', '') );
 	}
 
-	public function set_footer_code( $code ) {
+	public function set_footer_code( string $code ): bool {
 		return update_option('om4_custom_footer_code', $code);
 	}
 
-	function maybe_display_footer_code() {
+	function maybe_display_footer_code(): void {
 			$text = $this->get_footer_code();
 			if ($text) {
 				$text = do_shortcode( $text );
@@ -128,7 +128,7 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 			}
 	}
 
-	public function dashboard_screen(){
+	public function dashboard_screen(): void {
 		?>
 		<div class='wrap'>
 			<div id="om4-header">
@@ -157,7 +157,7 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 
 				<p>
 					<label for="header_code_priority">Custom Header Code/Script Priority:</label>
-					<input name="header_code_priority" type="text" id="header_code_priority" value="<?php esc_attr_e( $this->get_header_code_priority() ); ?>" />
+					<input name="header_code_priority" type="text" id="header_code_priority" value="<?php esc_attr_e( (string) $this->get_header_code_priority() ); ?>" />
 				</p>
 				<h4>Custom Footer Code/Script</h4>
 						<p>This can be used to add any custom HTML just before the <code>&lt;/body&gt;</code> tag of every page. For example, an external JavaScript file can be referenced here using a <code>&lt;script&gt;</code> tag.</p>
@@ -202,7 +202,7 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 	/**
 	 * Handler that saves the dashboard screen's options/values, then redirects back to the Dashboard Screen
 	 */
-	public function dashboard_screen_save() {
+	public function dashboard_screen_save(): void {
 
 		$url = $this->dashboard_url();
 
@@ -238,17 +238,17 @@ $om4_header_footer = new OM4_Header_Footer();
 
 /** BEGIN GLOBAL FUNCTIONS - these are used outside of this plugin file **/
 
-function om4_get_custom_header_code() {
+function om4_get_custom_header_code(): string {
 	global $om4_header_footer;
 	return $om4_header_footer->get_header_code();
 }
 
-function om4_get_custom_footer_code() {
+function om4_get_custom_footer_code():string  {
 	global $om4_header_footer;
 	return $om4_header_footer->get_footer_code();
 }
 
-function om4_can_edit_custom_script_code() {
+function om4_can_edit_custom_script_code(): bool {
 	global $om4_header_footer;
 	return $om4_header_footer->can_manage_code();
 }
