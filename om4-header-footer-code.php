@@ -13,27 +13,27 @@ License: GPLv2
 */
 
 /*
+	Copyright 2012-2016 OM4 (email: plugins@om4.com.au    web: http://om4.com.au/)
 
-   Copyright 2012-2016 OM4 (email: plugins@om4.com.au    web: http://om4.com.au/)
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 
-if ( ! class_exists( 'OM4_Plugin_Appearance' ) )
-	require_once('includes/OM4_Plugin_Appearance.php');
+if ( ! class_exists( 'OM4_Plugin_Appearance' ) ) {
+	require_once 'includes/OM4_Plugin_Appearance.php';
+}
 
 
 /**
@@ -47,16 +47,17 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 	public function __construct() {
 
 		$this->screen_title = 'Header & Footer Code';
-		$this->screen_name = 'headerfooter';
+		$this->screen_name  = 'headerfooter';
 
 		if ( is_admin() ) {
-			add_action( 'admin_post_update_header_footer_code', array($this, 'dashboard_screen_save') );
+			add_action( 'admin_post_update_header_footer_code', array( $this, 'dashboard_screen_save' ) );
 		}
 
-		add_action('wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts') );
+		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
-		add_action( 'wp_head', array($this, 'maybe_display_header_code'), $this->get_header_code_priority() );
-		add_action( 'wp_footer', array($this, 'maybe_display_footer_code'), 9999999 ); // Big number so it is right before the </body> tag
+		add_action( 'wp_head', array( $this, 'maybe_display_header_code' ), $this->get_header_code_priority() );
+		add_action( 'wp_footer', array( $this, 'maybe_display_footer_code' ), 9999999 );
+		// Big number so it is right before the </body> tag.
 
 		parent::__construct();
 	}
@@ -64,8 +65,8 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 	/**
 	 * Always include jQuery in the frontend
 	 */
-	function wp_enqueue_scripts(): void {
-		wp_enqueue_script('jquery');
+	public function wp_enqueue_scripts(): void {
+		wp_enqueue_script( 'jquery' );
 	}
 
 	/**
@@ -85,47 +86,47 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 	 * @return bool
 	 */
 	public function can_manage_code(): bool {
-		return $this->can_access_dashboard_screen() && current_user_can('unfiltered_html');
+		return $this->can_access_dashboard_screen() && current_user_can( 'unfiltered_html' );
 	}
 
 	public function get_header_code(): string {
-		return strval( get_option('om4_custom_header_code', '') );
+		return strval( get_option( 'om4_custom_header_code', '' ) );
 	}
 
 	public function set_header_code( string $code ): bool {
-		return update_option('om4_custom_header_code', $code);
+		return update_option( 'om4_custom_header_code', $code );
 	}
 
-	function get_header_code_priority(): int {
-		return intval( get_option('om4_custom_header_code_priority', 10) );
+	public function get_header_code_priority(): int {
+		return intval( get_option( 'om4_custom_header_code_priority', 10 ) );
 	}
 
-	function set_header_code_priority( string $priority ): bool {
-		return update_option('om4_custom_header_code_priority', intval($priority) );
+	public function set_header_code_priority( string $priority ): bool {
+		return update_option( 'om4_custom_header_code_priority', intval( $priority ) );
 	}
 
-	function maybe_display_header_code(): void {
+	public function maybe_display_header_code(): void {
 			$text = $this->get_header_code();
-			if ($text) {
-				$text = do_shortcode( $text );
-				echo "\n$text\n";
-			}
+		if ( $text ) {
+			$text = do_shortcode( $text );
+			echo "\n$text\n";
+		}
 	}
 
 	public function get_footer_code(): string {
-		return strval( get_option('om4_custom_footer_code', '') );
+		return strval( get_option( 'om4_custom_footer_code', '' ) );
 	}
 
 	public function set_footer_code( string $code ): bool {
-		return update_option('om4_custom_footer_code', $code);
+		return update_option( 'om4_custom_footer_code', $code );
 	}
 
-	function maybe_display_footer_code(): void {
+	public function maybe_display_footer_code(): void {
 			$text = $this->get_footer_code();
-			if ($text) {
-				$text = do_shortcode( $text );
-				echo "\n$text\n";
-			}
+		if ( $text ) {
+			$text = do_shortcode( $text );
+			echo "\n$text\n";
+		}
 	}
 
 	public function dashboard_screen(): void {
@@ -134,12 +135,12 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 			<div id="om4-header">
 				<h2>Header and Footer Code/Script</h2>
 				<?php
-				if ( !$this->can_manage_code() ) {
+				if ( ! $this->can_manage_code() ) {
 					echo '<div class="error"><p>You do not have permission to access this feature.</p></div></div></div>';
 					return;
 				}
 
-				if ( isset($_GET['updated']) ) {
+				if ( isset( $_GET['updated'] ) ) {
 					echo '<div id="message" class="updated"><p>Header/Footer Code saved.</p></div>';
 				}
 
@@ -153,11 +154,11 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 				?>
 				<h4>Custom Header Code/Script Priority</h4>
 				<p>The priority below lets you specify where in the <code>&lt;head&gt;</code> section the <em>Custom Header Code/Script</em> will be output.<br />
-							 A small number will cause the code to be output closer to the opening <code>&lt;head&gt;</code> tag, whereas a large number will cause the code to be output closer to the closing <code>&lt;/head&gt;</code> tag.</p>
+							A small number will cause the code to be output closer to the opening <code>&lt;head&gt;</code> tag, whereas a large number will cause the code to be output closer to the closing <code>&lt;/head&gt;</code> tag.</p>
 
 				<p>
 					<label for="header_code_priority">Custom Header Code/Script Priority:</label>
-					<input name="header_code_priority" type="text" id="header_code_priority" value="<?php esc_attr_e( (string) $this->get_header_code_priority() ); ?>" />
+					<input name="header_code_priority" type="text" id="header_code_priority" value="<?php echo esc_attr( (string) $this->get_header_code_priority() ); ?>" />
 				</p>
 				<h4>Custom Footer Code/Script</h4>
 						<p>This can be used to add any custom HTML just before the <code>&lt;/body&gt;</code> tag of every page. For example, an external JavaScript file can be referenced here using a <code>&lt;script&gt;</code> tag.</p>
@@ -166,13 +167,13 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 				?>
 				<input type="hidden" name="action" value="update_header_footer_code" />
 				<?php
-				wp_nonce_field('update_header_footer_code');
+				wp_nonce_field( 'update_header_footer_code' );
 				?>
 				<p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"></p>
 				</form>
 			</div>
-			<script src="<?php esc_attr_e( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.js?v=5.17.0.1"></script>
-			<link rel="stylesheet" href="<?php esc_attr_e( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.css?v=5.17.0.1">
+			<script src="<?php echo esc_attr( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.js?v=5.17.0.1"></script>
+			<link rel="stylesheet" href="<?php echo esc_attr( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.css?v=5.17.0.1">
 			<style type="text/css">
 				.CodeMirror {
 					height: auto;
@@ -196,7 +197,7 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 				});
 			</script>
 		</div>
-	<?php
+		<?php
 	}
 
 	/**
@@ -208,28 +209,27 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 
 		if ( $this->can_manage_code() ) {
 
-			check_admin_referer('update_header_footer_code');
+			check_admin_referer( 'update_header_footer_code' );
 
-			$this->set_header_code( stripslashes($_POST['headercode']) );
+			// @phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$this->set_header_code( isset( $_POST['headercode'] ) ? wp_unslash( $_POST['headercode'] ) : '' );
 
-			if ( !isset($_POST['header_code_priority']) || !strlen($_POST['header_code_priority']) )
-				$_POST['header_code_priority'] = 10;
+			// @phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$this->set_header_code_priority( isset( $_POST['header_code_priority'] ) ? wp_unslash( $_POST['header_code_priority'] ) : 10 );
 
-			$this->set_header_code_priority( $_POST['header_code_priority'] );
+			// @phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$this->set_footer_code( isset( $_POST['footercode'] ) ? wp_unslash( $_POST['footercode'] ) : '' );
 
-			$this->set_footer_code( stripslashes($_POST['footercode']) );
-
-			// Allow other plugins to perform actions whenever the header/footer code is saved
+			// Allow other plugins to perform actions whenever the header/footer code is saved.
 			do_action( 'om4_header_footer_code_saved' );
 
 			$url = $this->dashboard_url_saved();
 
 		}
 
-		wp_redirect( esc_url_raw( $url ) );
+		wp_safe_redirect( esc_url_raw( $url ) );
 		exit;
 	}
-
 }
 
 
@@ -237,13 +237,12 @@ global $om4_header_footer;
 $om4_header_footer = new OM4_Header_Footer();
 
 /** BEGIN GLOBAL FUNCTIONS - these are used outside of this plugin file **/
-
 function om4_get_custom_header_code(): string {
 	global $om4_header_footer;
 	return $om4_header_footer->get_header_code();
 }
 
-function om4_get_custom_footer_code():string  {
+function om4_get_custom_footer_code(): string {
 	global $om4_header_footer;
 	return $om4_header_footer->get_footer_code();
 }
@@ -253,4 +252,4 @@ function om4_can_edit_custom_script_code(): bool {
 	return $om4_header_footer->can_manage_code();
 }
 
-/** END GLOBAL FUNCTIONS **/
+/** END GLOBAL FUNCTIONS */
