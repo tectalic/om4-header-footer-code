@@ -28,7 +28,7 @@
     <rule ref="PHPCompatibilityWP" />
 
     <!-- Set supported PHP version same as the plugin itself -->
-    <config name="testVersion" value="7.2-" />
+    <config name="testVersion" value="7.4-" />
 
     <!-- Include Commenting rules from Squiz standard -->
     <rule ref="Squiz.Commenting">
