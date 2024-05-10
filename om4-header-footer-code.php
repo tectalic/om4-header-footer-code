@@ -172,8 +172,8 @@ class OM4_Header_Footer extends OM4_Plugin_Appearance {
 				<p class="submit"><input type="submit" name="submit" id="submit" class="button-primary" value="Save Changes"></p>
 				</form>
 			</div>
-			<script src="<?php echo esc_attr( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.js?v=5.17.0.1"></script>
-			<link rel="stylesheet" href="<?php echo esc_attr( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.css?v=5.17.0.1">
+			<script src="<?php echo esc_attr( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.js?v=5.65.16"></script>
+			<link rel="stylesheet" href="<?php echo esc_attr( $this->plugin_url() ); ?>/CodeMirror/lib/codemirror.css?v=5.65.16">
 			<style type="text/css">
 				.CodeMirror {
 					height: auto;
