@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
-<ruleset name="OM4 WordPress" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="./vendor/squizlabs/php_codesniffer/phpcs.xsd">
+<ruleset name="OM4 WordPress" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="./vendor/squizlabs/php_codesniffer/phpcs.xsd">
     <description>OM4 Coding Standards for WordPress projects</description>
 
     <!-- Define files to check -->
@@ -10,6 +11,7 @@
     <exclude-pattern>./vendor</exclude-pattern>
 
     <!-- command-line config -->
+    <arg value="ps" />
     <arg name="extensions" value="php" />
 
     <!-- Include all rules from WordPress standard -->
